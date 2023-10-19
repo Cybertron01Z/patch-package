@@ -54,7 +54,6 @@ jspm_packages/
 # dotenv environment variables file
 .env
 
-dist/
 patch-package.test.tgz
 
 .yarn/cache

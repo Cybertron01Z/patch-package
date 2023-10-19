@@ -435,6 +435,7 @@ export function applyPatch({
       process.exit(0)
     }
   } catch (e) {
+    console.log(e);
     try {
       const backward = reverse ? patch : reversePatch(patch)
       executeEffects(backward, {
@@ -443,6 +444,7 @@ export function applyPatch({
         bestEffort: false,
       })
     } catch (e) {
+      console.log(e);
       return false
     }
   }

@@ -150,8 +150,10 @@ function applyPatch(
     errors,
   }: { dryRun: boolean; cwd?: string; bestEffort: boolean; errors?: string[] },
 ): void {
+  console.log(path);
   path = cwd ? resolve(cwd, path) : path
   // modifying the file in place
+  console.log(path);
   const fileContents = fs.readFileSync(path).toString()
   const mode = fs.statSync(path).mode
 
@@ -170,7 +172,7 @@ function applyPatch(
 
       fuzzingOffset =
         fuzzingOffset < 0 ? fuzzingOffset * -1 : fuzzingOffset * -1 - 1
-
+      console.log(fuzzingOffset);
       if (Math.abs(fuzzingOffset) > 20) {
         const message = `Cannot apply hunk ${hunks.indexOf(
           hunk,
@@ -254,9 +256,11 @@ function evaluateHunk(
   let contextIndex = hunk.header.original.start - 1 + fuzzingOffset
   // do bounds checks for index
   if (contextIndex < 0) {
+    console.log("contextIndex < 0");
     return null
   }
   if (fileLines.length - contextIndex < hunk.header.original.length) {
+    console.log("fileLines.length - contextIndex < hunk.header.original.length");
     return null
   }
 
@@ -267,6 +271,7 @@ function evaluateHunk(
         for (const line of part.lines) {
           const originalLine = fileLines[contextIndex]
           if (!linesAreEqual(originalLine, line)) {
+            console.log("!linesAreEqual(originalLine, line)");
             return null
           }
           contextIndex++
